@@ -19,3 +19,4 @@ Route::resource('roles', RoleController::class);
 Route::resource('permissions', PermissionController::class);
 Route::resource('users', UserController::class);
 require __DIR__.'/auth.php';                               
+
