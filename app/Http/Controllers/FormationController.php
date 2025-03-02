@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\formation;
+use App\Models\Formation;
 use App\Http\Requests\FormationRequest;
 
 class formationController extends Controller
@@ -13,7 +13,7 @@ class formationController extends Controller
      */
     public function index()
     {
-        $formations = formation::all(); // Retrieve all formations
+        $formations = Formation::all(); 
         return view('formations.index', compact('formations'));
     }
 
@@ -49,16 +49,21 @@ class formationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    // public function edit(string $id)
+    // {
+    //     $formation = Formation::findOrFail($id);
+    //     return view('formations.edit', compact('formation'));
+    // }
+    public function edit($id)
     {
-        $formation = formation::findOrFail($id);
+        $formation = Formation::findOrFail($id);
         return view('formations.edit', compact('formation'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(formationRequest $request, formation $formation)
+    public function update(FormationRequest $request, formation $formation)
     {
         $formation->update($request->validated());
 

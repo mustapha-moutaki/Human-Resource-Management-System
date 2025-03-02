@@ -9,9 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+///////////////////////////////////
+// use Spatie\Permission\Models\HasRole;
 
 class User extends Authenticatable{
+    // use HasRole;
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
@@ -36,11 +38,13 @@ class User extends Authenticatable{
         return $this->belongsTo(Role::class);
     }
 
-    public function grad() {
-        return $this->belongsTo(Grad::class);
-    }
 
     public function contract() {
         return $this->belongsTo(Contract::class);
+    }
+
+    public function grad()
+    {
+        return $this->hasMany(Grad::class);
     }
 }

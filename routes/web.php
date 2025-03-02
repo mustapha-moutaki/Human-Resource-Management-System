@@ -9,14 +9,12 @@ use App\Http\Controllers\FormationController;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::view('dashboard', 'dashboard')->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-    
+
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);
 Route::resource('departements', DepartementController::class);
