@@ -22,20 +22,27 @@ class GradeController extends Controller
    
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the incoming data
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'graduation_date' => 'required|date',
             'company_name' => 'required|string|max:255',
         ]);
-
-        $grade = new Grade();
-        $grade->name = $request->name;
-        $grade->graduation_date = $request->graduation_date;
-        $grade->company_name = $request->company_name;
-        $grade->save();
-
-        return redirect()->route('grad.index')->with('success', 'added sucess');
+    
+       
+        $user_id = session('user_id'); 
+    
+        Grade::create([
+        'user_id' => $user_id,
+        'name' => $validatedGrad['grad_name'],
+        'graduation_date' => $validatedGrad['graduation_date'],
+        'company_name' => $validatedGrad['company_name'],
+        ]);
+    
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Graduation Information Saved');
     }
+    
 
     
     public function edit($id)

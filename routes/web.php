@@ -10,10 +10,9 @@ use App\Http\Controllers\FormationController;
 Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
+// Route::post('/users/create', [UserController::class, 'store']);
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 
 Route::resource('roles', RoleController::class);
 Route::resource('users', UserController::class);

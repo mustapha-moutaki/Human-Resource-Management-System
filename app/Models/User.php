@@ -17,8 +17,8 @@ class User extends Authenticatable{
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
-        'name', 'email', 'password', 'departement_id', 'role_id', 
-        'grad_id', 'contract_id', 'salary', 'employee_id'
+        'first_name','last_name', 'email', 'password', 'departement_id', 'role_id', 
+         'contract_id', 'salary', 'employee_id', 'grad_id', 'contract_id'
     ];
 
     protected $hidden = [
@@ -45,6 +45,7 @@ class User extends Authenticatable{
 
     public function grad()
     {
-        return $this->hasMany(Grad::class);
+        return $this->hasMany(Grad::class, 'user_id'); // user_id is the foreign key in grad table
     }
+
 }

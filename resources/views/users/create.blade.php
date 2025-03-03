@@ -36,11 +36,7 @@
         <h1 class="mb-4 text-primary"><i class="fas fa-user-plus"></i> Add New User</h1>
         <form action="{{ route('users.store') }}" method="POST">
             @csrf
-            <!-- Name -->
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
+           
 
             <!-- First Name -->
             <div class="mb-3">
@@ -89,7 +85,7 @@
                 <select class="form-select" id="role_id" name="role_id">
                     <option value="">Select Role</option>
                     @foreach($roles as $role)
-                    <option value="{{ $role->name}}">{{$role->name}}</option>
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -145,7 +141,7 @@
             <!-- Grad Name -->
             <div class="mb-3">
                 <label for="grad_name" class="form-label">Grade Name</label>
-                <input type="text" class="form-control" id="grad_name" name="grad_name" required>
+                <input type="text" class="form-control" id="grad_name" name="name" required>
             </div>
 
             <!-- Graduation Date -->
