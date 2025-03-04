@@ -27,7 +27,6 @@ class UserRequest extends FormRequest
             'password' => $this->isMethod('post') ? 'required|min:6' : 'nullable|min:6',
             'departement_id' => 'nullable|exists:departements,id',
             'role_id' => 'nullable|exists:roles,id',
-            'grad_id' => 'nullable|exists:grads,id',
             'contract_id' => 'nullable|exists:contract,id',
             'salary' => 'nullable|numeric',
             'employee_id' => 'required|string|unique:users,employee_id,' . $this->user,

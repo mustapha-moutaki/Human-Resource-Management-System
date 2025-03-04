@@ -56,11 +56,7 @@
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
 
-            <!-- employee ID -->
-            <div class="mb-3">
-                <label for="employee_id" class="form-label">Employee ID</label>
-                <input type="text" class="form-control" id="employee_id" name="employee_id" required>
-            </div>
+            
 
             <!-- Password -->
             <div class="mb-3">
@@ -94,9 +90,10 @@
             <div class="mb-3">
                 <label for="grad_id" class="form-label">Grade</label>
                 <select class="form-select" id="grad_id" name="grad_id">
-                    <option value="">Select Grade</option>
-                    <option value="">No Grades Available</option>
-                    <option value =""></option>
+                <option value="">Select Grad</option>
+                    @foreach($grads as $grad)
+                    <option value="{{ $grad->id }}">{{ $grad->name }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -135,38 +132,6 @@
                 <input type="text" class="form-control" id="updated_at" name="updated_at" value="{{ now() }}">
             </div>
 
-            <!-- Grad Info -->
-            <h2 class="mt-5 text-secondary">Add Graduation Information</h2>
-
-            <!-- Grad Name -->
-            <div class="mb-3">
-                <label for="grad_name" class="form-label">Grade Name</label>
-                <input type="text" class="form-control" id="grad_name" name="name" required>
-            </div>
-
-            <!-- Graduation Date -->
-            <div class="mb-3">
-                <label for="graduation_date" class="form-label">Graduation Date</label>
-                <input type="date" class="form-control" id="graduation_date" name="graduation_date" required>
-            </div>
-
-            <!-- Company Name -->
-            <div class="mb-3">
-                <label for="company_name" class="form-label">Company Name</label>
-                <input type="text" class="form-control" id="company_name" name="company_name" required>
-            </div>
-
-            <!-- Grad Created at -->
-            <div class="mb-3">
-                <label for="grad_created_at" class="form-label">Created At</label>
-                <input type="text" class="form-control" id="grad_created_at" name="grad_created_at" value="{{ now() }}" disabled>
-            </div>
-
-            <!-- Grad Updated at -->
-            <div class="mb-3">
-                <label for="grad_updated_at" class="form-label">Updated At</label>
-                <input type="text" class="form-control" id="grad_updated_at" name="grad_updated_at" value="{{ now() }}">
-            </div>
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save User and Graduation Info</button>

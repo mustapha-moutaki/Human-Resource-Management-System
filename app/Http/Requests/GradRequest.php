@@ -13,7 +13,7 @@ class GradRequest extends FormRequest
 
     public function rules(){
         return [
-            'grad_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'graduation_date' => 'required|date',
             'company_name' => 'required|string|max:255',
         ];
