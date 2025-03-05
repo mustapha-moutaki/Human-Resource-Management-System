@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Formation;
 use App\Http\Requests\FormationRequest;
 
-class formationController extends Controller
+class FormationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,6 +23,7 @@ class formationController extends Controller
     public function create()
     {
         return view('formations.create');
+        return redirect() -> route('formations.index') -> with('success', 'formation added successfully');
     }
 
     /**

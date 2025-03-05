@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DepartementRequest;
 use App\Models\Departement;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
 
 class DepartementController extends Controller
 {
@@ -28,18 +30,50 @@ class DepartementController extends Controller
      */
     public function create()
     {
-        return view('departements.create');
+        $managerRoleId = Role::where('name', 'manager')->value('id');
+
+        // Fetch users with the manager role
+        $managerUsers = User::where('role_id', $managerRoleId)->get();
+    
+        return view('departements.create', compact('managerUsers'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DepartementRequest $request)
-    {
-        Departement::create($request->all());
+    // public function store(DepartementRequest $request){
+    //     Departement::create($request->all());
 
-        return redirect()->route('departements.index')->with('success', 'Departement added successfully!');
+    //     return redirect()->route('departements.index')->with('success', 'Departement added successfully!');
+    // }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'manager' => 'required|exists:users,id',
+        ]);
+    
+        // Create the new department
+        $department = Departement::create([
+            'name' => $request->name,
+        ]);
+    
+        $manager = User::find($request->manager);
+    
+        // If the manager already has a department, you can log or handle it as needed
+        if ($manager->departement_id) {
+            // Optionally log or perform any action regarding the old department
+            // For example, you could notify someone or keep track of the old department
+        }
+    
+        // Assign the new department ID to the manager
+        $manager->departement_id = $department->id; // Use 'departement_id' here
+        $manager->save();
+    
+        return redirect()->route('departements.index')->with('success', 'Department created successfully.');
     }
+
 
     /**
      * Display the specified resource.

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FormationRequest extends FormRequest
+class CareerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,7 @@ class FormationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'start_date' => 'required|date',
-            'completion_date' => 'required|date|after:start_date',
-            'duration' => 'required|integer|min:1',
-            'type' => 'required|string|in:online,physic',
+            'name' =>'required|string|max:25'
         ];
     }
 }

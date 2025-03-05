@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graduation Records</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+@extends('layouts.app')
 
+@section('title', 'Graduation Records')
+
+@section('content')
     <div class="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-8 border border-gray-200">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Graduation Records</h2>
 
@@ -22,19 +17,17 @@
         <table class="min-w-full bg-white border border-gray-200">
             <thead>
                 <tr class="bg-gray-200">
-                    <th class="py-2 px-4 border-b">Name</th>
-                    <th class="py-2 px-4 border-b">Graduation Date</th>
-                    <th class="py-2 px-4 border-b">Company Name</th>
-                    <th class="py-2 px-4 border-b">Actions</th>
+                    <th class="py-2 px-4 border-b text-left">Name</th>
+                    <th class="py-2 px-4 border-b text-left">Graduation Date</th>
+                    <th class="py-2 px-4 border-b text-left">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($grads as $grad)
                     <tr>
-                        <td class="py-2 px-4 border-b">{{ $grad->name }}</td>
-                        <td class="py-2 px-4 border-b">{{ $grad->graduation_date }}</td>
-                        <td class="py-2 px-4 border-b">{{ $grad->company_name }}</td>
-                        <td class="py-2 px-4 border-b">
+                        <td class="py-2 px-4 border-b text-left">{{ $grad->name }}</td>
+                        <td class="py-2 px-4 border-b text-left">{{ $grad->graduation_date }}</td>
+                        <td class="py-2 px-4 border-b text-left">
                             <a href="{{ route('grads.edit', $grad->id) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
                             <form action="{{ route('grads.destroy', $grad->id) }}" method="POST" class="inline-block">
                                 @csrf
@@ -47,6 +40,4 @@
             </tbody>
         </table>
     </div>
-
-</body>
-</html>
+@endsection

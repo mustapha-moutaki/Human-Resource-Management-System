@@ -27,9 +27,15 @@ class UserRequest extends FormRequest
             'password' => $this->isMethod('post') ? 'required|min:6' : 'nullable|min:6',
             'departement_id' => 'nullable|exists:departements,id',
             'role_id' => 'nullable|exists:roles,id',
-            'contract_id' => 'nullable|exists:contract,id',
-            'salary' => 'nullable|numeric',
-            'employee_id' => 'required|string|unique:users,employee_id,' . $this->user,
+            'contract_id' => 'nullable|exists:contracts,id', 
+            'salary' => 'nullable|numeric|min:3000',
+            'birthday' => 'nullable|date',
+            'address' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:15',
+            'status' => 'nullable|in:engaged,divorced',
+            'assurance' => 'nullable|in:yes,no',
+            'CIN' => 'nullable|string|max:255',
+            'CNSS' => 'nullable|integer',
         ];
     }
 }

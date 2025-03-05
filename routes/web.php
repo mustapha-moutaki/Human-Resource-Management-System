@@ -7,7 +7,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\GradController;
-Route::view('/', 'welcome');
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CareerController;
+Route::redirect('/', '/login');
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
 // Route::post('/users/create', [UserController::class, 'store']);
@@ -19,6 +21,10 @@ Route::resource('users', UserController::class);
 Route::resource('departements', DepartementController::class);
 Route::resource('formations', FormationController::class);
 Route::resource('grads', GradController::class);
+Route::resource('contracts', ContractController::class);
+Route::resource('careers', CareerController::class);
+
+Route::view('organizational', 'organizational.index')->name('maindashboard');
 
 // Route::resource('roles/create', RoleController::class);
 Route::resource('permissions', PermissionController::class);

@@ -1,53 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Departement</title>
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome CSS CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-</head>
-<body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4>Edit Departement</h4>
-                            <a href="{{ route('departements.index') }}" class="btn btn-primary">
-                                <i class="fas fa-arrow-left"></i> Back to Departements
-                            </a>
-                        </div>
-                    </div>
+@extends('layouts.app')
 
-                    <div class="card-body">
-                        <form action="{{ route('departements.update', $departement->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
+@section('title', 'Edit Departement')
 
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                    name="name" value="{{ old('name', $departement->name) }}" required>
-                                @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Update
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+@section('content')
+    <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <div class="flex justify-between items-center mb-4">
+            <h4 class="text-xl font-semibold">Edit Departement</h4>
+            <a href="{{ route('departements.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                <i class="fas fa-arrow-left"></i> Back to Departements
+            </a>
         </div>
-    </div>
 
-    <!-- Bootstrap JS CDN -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+        <form action="{{ route('departements.update', $departement->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-medium">Name</label>
+                <input type="text" id="name" name="name" value="{{ old('name', $departement->name) }}" 
+                       class="w-full p-2 border border-gray-300 rounded-lg @error('name') border-red-500 @enderror" required>
+                @error('name')
+                <div class="text-red-500 text-sm mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                <i class="fas fa-save"></i> Update
+            </button>
+        </form>
+    </div>
+@endsection

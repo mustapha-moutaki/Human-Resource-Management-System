@@ -1,61 +1,39 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('HRMS Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="flex h-screen bg-gray-100 dark:bg-gray-900">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white dark:bg-gray-800 shadow-md transition-all ease-in-out duration-300">
-            <div class="p-6">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Menu</h3>
-                <ul class="mt-4">
-                    <li class="mb-2">
-                        <a href="{{ route('users.create') }}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 ehover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                            <i class="fas fa-user-circle"></i> User Management
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{{route('formations.index')}}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                            <i class="fas fa-building"></i> formation Management
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="{{ route('departements.index')}}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                            <i class="fas fa-sitemap"></i> Department Management
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                            <i class="fas fa-shield-alt"></i> Roles & Permissions
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                            <i class="fas fa-clock"></i> Attendance Tracking
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                            <i class="fas fa-folder"></i> Document Management
-                        </a>
-                    </li>
-                </ul>
+@section('title', 'Dashboard')
+
+@section('content')
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-4 text-gray-800">Welcome to the Dashboard!</h2>
+        <p class="text-gray-600 mb-6">Here is where you can manage your content.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-2">Total Users</h3>
+                <p class="text-2xl font-bold text-primary">150</p>
             </div>
-        </aside>
 
-        <!-- Main Content -->
-        <div class="flex-1 p-6">
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Welcome to the HRMS</h3>
-                <p class="text-gray-600 dark:text-gray-400">
-                    🚀 Manage your employees, departments, and documents efficiently with our HRMS.
-                </p>
+            <!-- Card 2 -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-2">Active Sessions</h3>
+                <p class="text-2xl font-bold text-primary">75</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-2">Pending Requests</h3>
+                <p class="text-2xl font-bold text-primary">10</p>
             </div>
         </div>
-    </div>
 
-    <!-- Include Font Awesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</x-app-layout>
+        <div class="mt-8">
+            <h3 class="text-2xl font-bold mb-4">Recent Activities</h3>
+            <ul class="bg-white shadow-lg rounded-lg p-4">
+                <li class="border-b border-gray-200 py-2">User John Doe created a new post.</li>
+                <li class="border-b border-gray-200 py-2">User Jane Smith updated her profile.</li>
+                <li class="border-b border-gray-200 py-2">User Mike Johnson logged in.</li>
+            </ul>
+        </div>
+    </div>
+@endsection

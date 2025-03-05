@@ -16,9 +16,27 @@ class User extends Authenticatable{
     // use HasRole;
     use HasFactory, Notifiable, SoftDeletes;
 
+    // protected $fillable = [
+    //     'first_name','last_name', 'email', 'password', 'departement_id', 'role_id', 
+    //      'contract_id', 'salary', 'grad_id', 'contract_id'
+    // ];
     protected $fillable = [
-        'first_name','last_name', 'email', 'password', 'departement_id', 'role_id', 
-         'contract_id', 'salary', 'employee_id', 'grad_id', 'contract_id'
+      'first_name',
+        'last_name',
+        'email',
+        'password',
+        'birthday',
+        'address',
+        'phone',
+        'status',
+        'assurance',
+        'CIN',
+        'CNSS',
+        'departement_id',
+        'role_id',
+        'grad_id',
+        'contract_id',
+        'salary',
     ];
 
     protected $hidden = [
@@ -34,7 +52,8 @@ class User extends Authenticatable{
         return $this->belongsTo(Departement::class);
     }
 
-    public function role() {
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
