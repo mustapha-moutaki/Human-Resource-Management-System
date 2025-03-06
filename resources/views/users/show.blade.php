@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
         <div class="w-full max-w-xl bg-white shadow-lg rounded-lg overflow-hidden p-8">
@@ -28,7 +27,7 @@
                             <i class="fas fa-user fa-2x"></i>
                         </div>
                         <div class="text-center mt-2">
-                            <span class="block text-xs font-semibold">Hire date</span>
+                            <span class="block text-xs font-semibold">Hire Date</span>
                             <span class="block text-xs text-gray-500">{{ $user->created_at->toDateString() }}</span>
                         </div>
                     </div>
@@ -67,7 +66,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-sm font-medium text-gray-600">Department</p>
-                        <p class="text-gray-800">{{$user->departement_id ? $user->departement->name : 'no department'}}</p>
+                        <p class="text-gray-800">{{$user->departement_id ? $user->departement->name : 'No Department'}}</p>
                     </div>
                     <div>
                         <p class="text-sm font-medium text-gray-600">Hire Date</p>
@@ -92,38 +91,46 @@
             <!-- Additional Form -->
             <div class="bg-gray-50 p-4 rounded-lg mt-4 hidden" id="additionalForm">
                 <h3 class="text-lg font-semibold mb-4">Edit Employee Details</h3>
-                <form id="editEmployeeForm">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="career" class="text-sm font-medium text-gray-600">Select Career</label>
-                            <select id="career" name="career" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="">Select Career</option>
-                                <option value="1">Software Engineer</option>
-                                <option value="2">Data Scientist</option>
-                                <option value="3">Product Manager</option>
-                                <!-- Add more options as needed -->
-                            </select>
-                        </div>
-                        <div>
-                            <label for="formation" class="text-sm font-medium text-gray-600">Formation</label>
-                            <input type="text" id="formation" name="formation" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="Enter formation">
-                        </div>
-                        <div>
-                            <label for="phone" class="text-sm font-medium text-gray-600">Phone</label>
-                            <input type="text" id="phone" name="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" placeholder="Enter phone number">
-                        </div>
-                        <div class="flex items-center justify-end">
-                            <button type="button" class="bg-green-500 text-white px-4 py-2 rounded mr-2">Add Formation</button>
-                            <button type="button" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
-                        </div>
+                <form action="{{ route('users.update', $user->id) }}" method="POST">
+                    @csrf
+
+                    <!-- Select Career -->
+                    <div class="mb-4">
+                        <label for="career_id" class="block text-sm font-medium text-gray-600">Select Career:</label>
+                        <select id="career_id" name="career_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                            <option value="">Select a Career</option>
+                            @foreach($careers as $career)
+                                <option value="{{ $career->id }}">{{ $career->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
+
+                    <h3>Select Formations:</h3>
+                    @foreach($formations as $formation)
+                        <div>
+                            <input type="checkbox" id="formation_{{ $formation->id }}" name="formations[]" value="{{ $formation->id }}">
+                            <label for="formation_{{ $formation->id }}">{{ $formation->title }}</label>
+                        </div>
+                    @endforeach
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Update Employee Info</button>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- Font Awesome Script -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> {{-- Include Font Awesome --}}
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     
     <script>
         document.getElementById('editButton').addEventListener('click', function() {

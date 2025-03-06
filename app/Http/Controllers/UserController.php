@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\Grad;
 use App\Models\Formation;
 use App\Models\Contract;
+use App\Models\Career;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
@@ -44,8 +45,7 @@ class UserController extends Controller
      */
 
 
-public function store(Request $request)
-{
+public function store(Request $request){
     $user = User::create([
         'first_name' => $request->first_name,
         'last_name' => $request->last_name,
@@ -62,8 +62,11 @@ public function store(Request $request)
         'role_id' => $request->role_id,
         'contract_id' => $request->contract_id,
         'salary' => $request->salary,
+       
     ]);
-    
+     
+   
+
     return redirect()->route('users.index')->with('success', 'User saved successfully!');
 }
 
@@ -81,7 +84,12 @@ public function store(Request $request)
             $data['password'] = Hash::make($request->password);
         }
 
-        // Update the user record
+        $user = User::findOrFail($id);
+    
+        // Update the user's career_id
+        $user->career_id = $request->career_id;
+        $user->save();
+        
         $user->update($data);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully!');
@@ -92,7 +100,9 @@ public function store(Request $request)
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $careers = Career::all();
+        $formations = Formation::all();
+        return view('users.show', compact('user', 'careers', 'formations'));
     }
 
     /**

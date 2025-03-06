@@ -36,6 +36,10 @@ class UserRequest extends FormRequest
             'assurance' => 'nullable|in:yes,no',
             'CIN' => 'nullable|string|max:255',
             'CNSS' => 'nullable|integer',
+          
+            'career_id' => 'required|exists:careers,id',
+            'formations' => 'nullable|array',
+            'formations.*' => 'exists:formations,id',
         ];
     }
 }

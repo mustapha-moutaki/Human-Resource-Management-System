@@ -4,7 +4,14 @@
         <a href="#" class="text-xl font-bold">Dashboard</a>
         <div class="hidden md:flex space-x-4">
             <a href="#" class="hover:bg-blue-600 p-2 rounded">Profile</a>
-            <a href="#" class="hover:bg-blue-600 p-2 rounded">Logout</a>
+
+            <div>
+    <!-- Logout button -->
+    <form action="{{ route('logout') }}" method="POST" id="logout-form">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+</div>
         </div>
     </div>
 </nav>

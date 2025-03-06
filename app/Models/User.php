@@ -64,7 +64,15 @@ class User extends Authenticatable{
 
     public function grad()
     {
-        return $this->hasMany(Grad::class, 'user_id'); // user_id is the foreign key in grad table
+        return $this->hasMany(Grad::class, 'user_id');
     }
+
+    public function formations()
+    {
+        return $this->belongsToMany(Formation::class);
+    }
+
+ 
+
 
 }
