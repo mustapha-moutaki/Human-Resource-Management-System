@@ -6,6 +6,7 @@
         <!-- Flex container for Profile, Username, and Logout -->
         <div class="hidden md:flex items-center space-x-4">
           
+        
 
             @auth
                 <span class="p-2">Hello, {{ Auth::user()->first_name }}!</span>
