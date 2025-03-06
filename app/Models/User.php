@@ -9,12 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 ///////////////////////////////////
 // use Spatie\Permission\Models\HasRole;
 
 class User extends Authenticatable{
     // use HasRole;
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     // protected $fillable = [
     //     'first_name','last_name', 'email', 'password', 'departement_id', 'role_id', 
