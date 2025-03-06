@@ -47,6 +47,7 @@ Route::middleware('role:HR|Admin')->group(function(){
   
 });
 
+
 Route::middleware('role:HR|Manager')->group(function(){
     Route::resource('manageapps', ManageApps::class);
 });
@@ -58,7 +59,6 @@ Route::middleware('role:Manager|HR|Admin')->group(function(){
     Route::resource('organizational', OrganizationalChartController::class);
 });
 
-
 Route::middleware('role:Employee')->group(function(){
     Route::get('/employee/leaverequest/create', [AdministrationController::class, 'create'])->name('administrations.create');
     Route::resource('/employee/leaverequest/status', LeaveController::class);
@@ -66,7 +66,6 @@ Route::middleware('role:Employee')->group(function(){
 
 
 Route::get('/administrations', [LeaveController::class, 'index'])->name('administrations.index');
-
 
 // Route::resource('roles/create', RoleController::class);
 Route::post('/leave/store', [LeaveController::class, 'store'])->name('leave.store');
@@ -79,8 +78,3 @@ Route::delete('/leave/{id}/edit', [LeaveController::class, 'edit'])->name('leave
 
 Route::resource('permissions', PermissionController::class);
 require __DIR__.'/auth.php';                               
-
-//middleware and don't forgot roles
-    // @role('Admin')
-    // <li class="mb-4"><a href="{{ route('users.index') }}" class="block py-2 px-4 hover:bg-gray-300">Manage Users</a></li>
-    // @endrole
