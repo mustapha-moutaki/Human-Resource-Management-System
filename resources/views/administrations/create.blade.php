@@ -22,7 +22,11 @@
                     <label for="days_off" class="block text-sm font-medium text-gray-700">Days Off Requested</label>
                     <input type="number" name="days_off" id="days_off" required
                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                           <p class ='text-red-500'>Your remaining leave balance: {{ auth()->user()->leaveBalance() }} days</p>
+                           @if(auth()->user()->leaveBalance() > 0)
+                           <p class ='text-green-500'>Your remaining leave balance: {{ auth()->user()->leaveBalance() }} days</p>
+                           @else
+                           <p class ='text-red-500'>u don't have enough balance !</p>
+                           @endif
                 </div>
              
 
