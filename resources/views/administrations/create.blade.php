@@ -47,6 +47,12 @@
                 </button>
             </div>
         </form>
+        @if ($errors->has('message'))
+    <div class="alert alert-danger" style="padding:5px; background-color:red; margin-top:10px; border-radius:20px;">
+        {{ $errors->first('message') }}
+    </div>
+@endif
+
     </div>
 
 </div>

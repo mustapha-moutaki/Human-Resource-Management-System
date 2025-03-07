@@ -86,6 +86,7 @@ class User extends Authenticatable{
         $additionalLeave = $yearsWorked * 0.5;
 
         return $baseLeave + $additionalLeave;
+        //this function check how many years the user worked and then trnasofrm to total days can take as time off and return the number
     }
 
 
