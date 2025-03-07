@@ -89,36 +89,64 @@ class LeaveController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+        
+    //     // Validate the request
+    //     $validated = $request->validate([
+    //         'days_off' => 'required|integer|min:1',
+    //         'description' => 'required|string',
+    //         'start_date' => 'required|date|after_or_equal:today',
+    //     ]);
+    
+    //     $daysOff = $validated['days_off'];
+    //     $user = auth()->user();
+    //     $availableLeave = $user->leaveBalance();
+    //     if ($validated['days_off'] > $availableLeave) {
+    //         return back()->withErrors(['message' => 'You do not have enough leave balance.']);
+    //     }
+
+
+    //     // Create a new leave request
+    //     $leave = Leave::create([
+    //         'user_id' => auth()->id(),
+    //         'first_name' => auth()->user()->first_name,
+    //         'description' => $validated['description'],
+    //         'start_date' => $validated['start_date'],
+    //         'days_off' => $daysOff,
+    //         'status' => 'pending',
+    //     ]);
+    
+    //     return redirect()->back()->with('success', 'Leave request submitted successfully!');
+    // }
     public function store(Request $request)
     {
-        
-        // Validate the request
         $validated = $request->validate([
             'days_off' => 'required|integer|min:1',
             'description' => 'required|string',
             'start_date' => 'required|date|after_or_equal:today',
         ]);
     
-        $daysOff = $validated['days_off'];
         $user = auth()->user();
         $availableLeave = $user->leaveBalance();
+    
+      
         if ($validated['days_off'] > $availableLeave) {
-            return back()->withErrors(['message' => 'You do not have enough leave balance.']);
+            return back()->withErrors(['message' => 'u do not have  enough balance']);
         }
-
-
-        // Create a new leave request
-        $leave = Leave::create([
-            'user_id' => auth()->id(),
-            'first_name' => auth()->user()->first_name,
+    
+        Leave::create([
+            'user_id' => $user->id,
             'description' => $validated['description'],
             'start_date' => $validated['start_date'],
-            'days_off' => $daysOff,
+            'days_off' => $validated['days_off'],
             'status' => 'pending',
         ]);
     
-        return redirect()->back()->with('success', 'Leave request submitted successfully!');
+        return redirect()->back()->with('success', 'the request sended successfully..!');
     }
+    
+
     
 
     /**

@@ -80,13 +80,30 @@ class User extends Authenticatable{
     }
 
 
-    public function leaveBalance() {
-        $yearsWorked = Carbon::parse($this->created_date)->diffInYears(Carbon::now());
-        $baseLeave = 18;
-        $additionalLeave = $yearsWorked * 0.5;
+    // public function leaveBalance() {
+    //     $yearsWorked = Carbon::parse($this->created_date)->diffInYears(Carbon::now());
+    //     $baseLeave = 18;
+    //     $additionalLeave = $yearsWorked * 0.5;
 
-        return $baseLeave + $additionalLeave;
-        //this function check how many years the user worked and then trnasofrm to total days can take as time off and return the number
+    //     return $baseLeave + $additionalLeave;
+    //     //this function check how many years the user worked and then trnasofrm to total days can take as time off and return the number
+    // }
+
+
+    public function leaveBalance()
+    {
+        $hiringDate = $this->created_at; 
+        $yearsWorked = Carbon::now()->diffInYears($hiringDate); 
+    
+        $baseLeave = 18;
+        $extraLeave = max(0, $yearsWorked) * 0.5; 
+    
+        $totalLeave = $baseLeave + $extraLeave; 
+    
+       
+        $usedLeave = $this->leaves()->where('status', 'accepted')->sum('days_off');
+    
+        return max(0, $totalLeave - $usedLeave); 
     }
 
     public function career()
