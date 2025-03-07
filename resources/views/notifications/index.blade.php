@@ -15,6 +15,7 @@
                                 <div class="flex flex-col">
                                     <span class="font-semibold">{{ $notification->data['message'] }}</span>
                                     <span class="text-sm text-gray-500">{{ $notification->created_at->diffForHumans() }}</span>
+                                    <!-- this for see the time that notifacation has being sended -->
                                 </div>
                                 <div>
                                     @if(!$notification->read_at)

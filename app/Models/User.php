@@ -10,6 +10,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
+use Carbon\Carbon;
+
 ///////////////////////////////////
 // use Spatie\Permission\Models\HasRole;
 
@@ -72,8 +74,20 @@ class User extends Authenticatable{
     {
         return $this->belongsToMany(Formation::class);
     }
+// calcul holidays for employee
+    public function leaves() {
+        return $this->hasMany(Leave::class);
+    }
 
- 
+
+    public function leaveBalance() {
+        $yearsWorked = Carbon::parse($this->created_date)->diffInYears(Carbon::now());
+        $baseLeave = 18;
+        $additionalLeave = $yearsWorked * 0.5;
+
+        return $baseLeave + $additionalLeave;
+    }
+
 
 
 }

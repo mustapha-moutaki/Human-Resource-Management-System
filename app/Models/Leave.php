@@ -27,5 +27,10 @@ public function user()
 {
     return $this->belongsTo(User::class);
 }
+
+
+public function calculateEndDate() {
+    return Carbon::parse($this->start_date)->addDays($this->days_off)->format('Y-m-d');
+}
     
 }

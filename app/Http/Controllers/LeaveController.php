@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Leave;
 use Carbon\Carbon; 
-use App\Notifications\RequestStatusNotification;    
+use App\Notifications\RequestStatusNotification; 
+
 class LeaveController extends Controller
 {
     /**
@@ -99,7 +100,13 @@ class LeaveController extends Controller
         ]);
     
         $daysOff = $validated['days_off'];
-    
+        $user = auth()->user();
+        $availableLeave = $user->leaveBalance();
+        if ($validated['days_off'] > $availableLeave) {
+            return back()->withErrors(['message' => 'You do not have enough leave balance.']);
+        }
+
+
         // Create a new leave request
         $leave = Leave::create([
             'user_id' => auth()->id(),
