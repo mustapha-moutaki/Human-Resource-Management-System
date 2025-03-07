@@ -20,10 +20,10 @@ class UserSeeder extends Seeder
         // ]);
         // $admin->assignRole('Admin');
         $admin = User::create([
-            'first_name' =>'mugtpha',
-            'last_name' =>'mogaki',
-            'email' =>'mustapou@gmail.com',
-            'password' =>'123fff4bb5'
+            'first_name' =>'mustapha',
+            'last_name' =>'moutaki',
+            'email' =>'mustaphagmail.com',
+            'password' =>'123456789'
         ]);
         $admin->assignRole('Admin');
     }

@@ -41,11 +41,11 @@ Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 Route::middleware('role:Admin')->group(function(){
     
 Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
+
 Route::resource('departements', DepartementController::class);
 
 });
-
+Route::resource('users', UserController::class);
 Route::resource('careers', CareerController::class);
 
 Route::middleware('role:HR|Admin')->group(function(){
@@ -58,13 +58,17 @@ Route::middleware('role:HR|Admin')->group(function(){
 Route::middleware('role:HR|Manager|Admin')->group(function(){
     Route::resource('manageapps', ManageApps::class);
     Route::put('/users/{userId}/update', [UserFormationController::class, 'update'])->name('users.update');
-});
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
-Route::middleware('role:Manager|HR|Admin')->group(function(){
     Route::resource('grads', GradController::class);
     Route::patch('leave/{leave}/accept', [LeaveController::class, 'accept'])->name('leave.accept');
     Route::patch('leave/{leave}/refuse', [LeaveController::class, 'refuse'])->name('leave.refuse');
+
+});
+Route::middleware('role:Manager|HR|Admin|Employee')->group(function(){
+    
     Route::resource('organizational', OrganizationalChartController::class);
+  
 });
 
 Route::middleware('role:Employee')->group(function(){

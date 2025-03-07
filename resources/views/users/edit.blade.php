@@ -31,6 +31,55 @@
             <input type="password" name="password" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" placeholder="Leave blank to keep current password">
         </div>
 
+        <!-- Birthdate -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Birthdate</label>
+            <input type="date" name="birthdate" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" value="{{ old('birthdate', $user->birthdate) }}">
+        </div>
+
+        <!-- Address -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Address</label>
+            <input type="text" name="address" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" value="{{ old('address', $user->address) }}">
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Phone Number</label>
+            <input type="text" name="phone_number" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" value="{{ old('phone_number', $user->phone_number) }}">
+        </div>
+
+        <!-- Marital Status -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Marital Status</label>
+            <select name="marital_status" class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+                <option value="single" {{ old('marital_status', $user->marital_status) == 'single' ? 'selected' : '' }}>Single</option>
+                <option value="married" {{ old('marital_status', $user->marital_status) == 'married' ? 'selected' : '' }}>Married</option>
+                <option value="divorced" {{ old('marital_status', $user->marital_status) == 'divorced' ? 'selected' : '' }}>Divorced</option>
+            </select>
+        </div>
+
+        <!-- Assurance -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Assurance</label>
+            <select name="assurance" class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+                <option value="yes" {{ old('assurance', $user->assurance) == 'yes' ? 'selected' : '' }}>Yes</option>
+                <option value="no" {{ old('assurance', $user->assurance) == 'no' ? 'selected' : '' }}>No</option>
+            </select>
+        </div>
+
+        <!-- CIN -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">CIN (National Identity Number)</label>
+            <input type="text" name="cin" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" value="{{ old('cin', $user->cin) }}" required>
+        </div>
+
+        <!-- CNSS -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">CNSS (Social Security Number)</label>
+            <input type="text" name="cnss" class="form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" value="{{ old('CNSS', $user->CNSS) }}" required>
+        </div>
+
         <!-- Department -->
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold mb-2">Department</label>
@@ -68,11 +117,10 @@
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold mb-2">Contract</label>
             <select class="w-full p-2 border border-gray-300 rounded-lg" id="contract_id" name="contract_id">
-        
-                    @foreach($contracts as $contract)
-                        <option value="{{ $contract->id }}">{{ $contract->name }}</option>
-                    @endforeach
-                </select>
+                @foreach($contracts as $contract)
+                    <option value="{{ $contract->id }}">{{ $contract->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <!-- Salary -->

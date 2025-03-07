@@ -59,13 +59,14 @@ public function store(Request $request){
         'CIN' => $request->CIN,
         'CNSS' => $request->CNSS,
         'departement_id' => $request->departement_id,
-        'role_id' => $request->role_id,
+        // 'role_id' => $request->role_id,
         'contract_id' => $request->contract_id,
         'salary' => $request->salary,
        
     ]);
      
-   
+    $user->assignRole($request->role_name);
+    // dd($request->role_name);
 
     return redirect()->route('users.index')->with('success', 'User saved successfully!');
 }

@@ -93,11 +93,11 @@
 
             <!-- Role -->
             <div class="mb-4">
-                <label for="role_id" class="block text-gray-700 font-medium">Role</label>
-                <select class="w-full p-2 border border-gray-300 rounded-lg" id="role_id" name="role_id">
+                <label for="role_name" class="block text-gray-700 font-medium">Role</label>
+                <select class="w-full p-2 border border-gray-300 rounded-lg" id="role_name" name="role_name">
                     <option value="">Select Role</option>
                     @foreach($roles as $role)
-                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
             </div>

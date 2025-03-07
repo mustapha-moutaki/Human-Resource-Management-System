@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Application Routes
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This document provides an overview of the routes defined in your Laravel application and their respective functionalities.
 
-## About Laravel
+## Table of Contents
+- [Authentication Routes](#authentication-routes)
+- [Dashboard & Profile](#dashboard--profile)
+- [User Management](#user-management)
+- [Role & Permission Management](#role--permission-management)
+- [Departments Management](#departments-management)
+- [Career & Formation Management](#career--formation-management)
+- [Contract Management](#contract-management)
+- [Graduation & Leave Management](#graduation--leave-management)
+- [Organizational Chart Management](#organizational-chart-management)
+- [Notifications](#notifications)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Authentication Routes
+- `/` → Redirects to the login page.
+- `POST /logout` → Logs out the authenticated user and redirects to login.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Dashboard & Profile
+- `GET /dashboard` → Displays the dashboard view.
+- `GET /profile` → Displays the user profile (requires authentication).
 
-## Learning Laravel
+## User Management
+- `GET, POST, PUT, DELETE /users` → Resource routes for user management.
+- `PUT /users/{userId}/update` → Updates user formation details.
+- `PUT /users/{user}` → Updates user information.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Role & Permission Management
+- `GET, POST, PUT, DELETE /roles` → Resource routes for role management (Admin only).
+- `GET, POST, PUT, DELETE /permissions` → Resource routes for permission management.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Departments Management
+- `GET, POST, PUT, DELETE /departements` → Resource routes for department management (Admin only).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Career & Formation Management
+- `GET, POST, PUT, DELETE /careers` → Resource routes for career management.
+- `GET, POST, PUT, DELETE /formations` → Resource routes for formations (HR & Admin only).
 
-## Laravel Sponsors
+## Contract Management
+- `GET, POST, PUT, DELETE /contracts` → Resource routes for contract management (HR & Admin only).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Graduation & Leave Management
+- `GET, POST, PUT, DELETE /grads` → Resource routes for managing graduations (Manager, HR & Admin only).
+- `PATCH /leave/{leave}/accept` → Accepts a leave request.
+- `PATCH /leave/{leave}/refuse` → Refuses a leave request.
+- `POST /leave/store` → Stores a leave request.
+- `DELETE /leave/{id}` → Deletes a leave request.
+- `DELETE /leave/{id}/edit` → Edits a leave request.
 
-### Premium Partners
+## Organizational Chart Management
+- `GET, POST, PUT, DELETE /organizational` → Resource routes for managing organizational charts (Manager, HR & Admin only).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Employee Leave Requests
+- `GET /employee/leaverequest/create` → Employee creates a leave request.
+- `GET, POST, PUT, DELETE /employee/leaverequest/status` → Employee leave request status management.
+- `GET /administrations` → Displays all leave requests.
 
-## Contributing
+## Notifications
+- `GET /notifications` → Displays all notifications.
+- `POST /notifications/mark-as-read` → Marks notifications as read.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Middleware Restrictions
+- **Admin Only:** Roles & Departments management.
+- **HR & Admin:** Formations & Contracts management.
+- **Manager, HR & Admin:** Graduation & Organizational Chart management.
+- **Employee:** Leave request creation and status tracking.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Authentication Requirement
+These routes require authentication:
+- Profile
+- User management
+- Dashboard
+- Notifications
+- Leave requests
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Setup Instructions
+1. Clone the repository: `git clone your-repository-url`
+2. Install dependencies: `composer install`
+3. Setup `.env` file and configure database connection
+4. Run migrations: `php artisan migrate`
+5. Seed the database (if needed): `php artisan db:seed --class=UserSeeder`
+6. Start the application: `php artisan serve`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+For more details, refer to the Laravel documentation: [https://laravel.com/docs](https://laravel.com/docs).
+

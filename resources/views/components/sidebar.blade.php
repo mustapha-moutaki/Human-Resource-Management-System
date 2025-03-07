@@ -18,10 +18,11 @@
         @endhasrole
         @hasrole('Admin|HR|Manager')
         <li class="mb-4"><a href="{{ route('grads.index') }}" class="block py-2 px-4 hover:bg-gray-300">manage grads</a></li>
-        @endhasrole
+        
         <li class="mb-4"><a href="" class="block py-2 px-4 hover:bg-gray-300">Manage Employee</a></li>
+        @endhasrole
         @hasrole('Admin|HR|Manager|Employee')
-        <li class="mb-4"><a href="" class="block py-2 px-4 hover:bg-gray-300"> Organigramme</a></li>
+        <li class="mb-4"><a href="{{route('organizational.index')}}" class="block py-2 px-4 hover:bg-gray-300"> Organigramme</a></li>
         @endhasrole
         @hasrole('Admin')
         <li class="mb-4"><a href="{{route('roles.index') }}" class="block py-2 px-4 hover:bg-gray-300"> manage roles</a></li>

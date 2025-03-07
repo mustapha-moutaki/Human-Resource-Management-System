@@ -14,7 +14,7 @@
 }
 
 body {
-    background-color: #1d1f20;
+    background-color: white;
     font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
 }
 

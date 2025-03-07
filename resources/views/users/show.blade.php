@@ -45,17 +45,17 @@
                     </div>
                     <div class="flex flex-col items-center relative group">
                         <div class="w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-md">
-                            
+                            <!-- Font Awesome icon for Formation -->
                             <i class="fas fa-graduation-cap text-2xl"></i>
                         </div>
                         <div class="text-center mt-2">
                             <span class="block text-xs font-semibold">Formation</span>
-                            <span class="block text-xs text-gray-500"> {{ $user->formations->pluck('title')->implode(', ') }}</span>
+                            <span class="block text-xs text-gray-500">  {{ $user->formations->pluck('title')->implode(', ') }}</span>
                         </div>
                     </div>
                     <div class="flex flex-col items-center relative group">
                         <div class="w-16 h-16 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-md">
-                          
+                            <!-- Font Awesome icon for Graduation -->
                             <i class="fas fa-trophy text-2xl"></i>
                         </div>
                         <div class="text-center mt-2">
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-          
+            <!-- Additional Employee Details -->
             <div class="bg-gray-50 p-4 rounded-lg">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
@@ -161,6 +161,30 @@
                 <form action="{{ route('users.update', $user->id) }}" method="POST">
     @csrf
     @method('PUT')
+
+    <!-- Select Career -->
+    <div class="mb-4">
+        <label for="career_id" class="block text-sm font-medium text-gray-600">Select Career:</label>
+        <select id="career_id" name="career_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+            <option value="">Select a Career</option>
+            @foreach($careers as $career)
+                <option value="{{ $career->id }}" 
+                    {{ old('career_id', $user->career_id) == $career->id ? 'selected' : '' }}>
+                    {{ $career->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Update Employee Info</button>
+</form>
+
+
+
+
+                <form action="{{ route('users.update', $user->id) }}" method="POST">
+    @csrf
+    @method('PUT')
     <h3>Select Formations:</h3>
     @foreach($formations as $formation)
         <div>
@@ -182,10 +206,6 @@
     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Update Employee Info</button>
 </form>
 
-
-
-
-                 
             </div>
         </div>
     </div>
