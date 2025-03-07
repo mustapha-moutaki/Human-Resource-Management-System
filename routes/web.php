@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManageApps; 
 use App\Http\Controllers\NotificationController; 
-
+use App\Http\Controllers\UserFormationController;
 // use App\Http\Controllers\NotificationController;
 
 // Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
@@ -57,6 +57,7 @@ Route::middleware('role:HR|Admin')->group(function(){
 
 Route::middleware('role:HR|Manager|Admin')->group(function(){
     Route::resource('manageapps', ManageApps::class);
+    Route::put('/users/{userId}/update', [UserFormationController::class, 'update'])->name('users.update');
 });
 
 Route::middleware('role:Manager|HR|Admin')->group(function(){

@@ -29,7 +29,7 @@
         @hasrole('Admin|HR|Manager')
         <li class="mb-4"><a href="{{route('manageapps.index')}}" class="block py-2 px-4 hover:bg-gray-300"> Leave Administration</a></li>
         @endhasrole
-        @hasrole('Admin|HR|Manager|Employee')
+        @hasrole('Employee')
         <li class="mb-4"><a href="{{route('administrations.create') }}" class="block py-2 px-4 hover:bg-gray-300">Leave Application</a></li>
         @endhasrole
     </ul>

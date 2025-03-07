@@ -110,11 +110,11 @@ class LeaveController extends Controller
         // Create a new leave request
         $leave = Leave::create([
             'user_id' => auth()->id(),
-            'first_name' => auth()->user()->first_name, // Directly set from authenticated user
+            'first_name' => auth()->user()->first_name,
             'description' => $validated['description'],
             'start_date' => $validated['start_date'],
             'days_off' => $daysOff,
-            'status' => 'pending', // Default status is 'pending'
+            'status' => 'pending',
         ]);
     
         return redirect()->back()->with('success', 'Leave request submitted successfully!');

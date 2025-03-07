@@ -67,12 +67,12 @@
         <!-- Contract -->
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold mb-2">Contract</label>
-            <select name="contract_id" class="form-select mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50" required>
-                <option value="">Select Contract</option>
-                <option value="1" {{ old('contract_id', $user->contract_id) == 1 ? 'selected' : '' }}>Full-Time</option>
-                <option value="2" {{ old('contract_id', $user->contract_id) == 2 ? 'selected' : '' }}>Part-Time</option>
-                <option value="3" {{ old('contract_id', $user->contract_id) == 3 ? 'selected' : '' }}>Freelance</option>
-            </select>
+            <select class="w-full p-2 border border-gray-300 rounded-lg" id="contract_id" name="contract_id">
+        
+                    @foreach($contracts as $contract)
+                        <option value="{{ $contract->id }}">{{ $contract->name }}</option>
+                    @endforeach
+                </select>
         </div>
 
         <!-- Salary -->

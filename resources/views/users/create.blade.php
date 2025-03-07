@@ -64,7 +64,7 @@
                 <label for="assurance" class="block text-gray-700 font-medium">Assurance</label>
                 <select class="w-full p-2 border border-gray-300 rounded-lg" id="assurance" name="assurance" required>
                     <option value="yes">I Have</option>
-                    <option value="not">I Do Not Have</option>
+                    <option value="no">I Do Not Have</option>
                 </select>
             </div>
 

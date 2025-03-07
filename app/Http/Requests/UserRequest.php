@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'password' => $this->isMethod('post') ? 'required|min:6' : 'nullable|min:6',
             'departement_id' => 'nullable|exists:departements,id',
             'role_id' => 'nullable|exists:roles,id',
-            'contract_id' => 'nullable|exists:contracts,id', 
+            'contract_id' => 'nullable|exists:contract,id', 
             'salary' => 'nullable|numeric|min:3000',
             'birthday' => 'nullable|date',
             'address' => 'nullable|string|max:255',
@@ -37,9 +37,9 @@ class UserRequest extends FormRequest
             'CIN' => 'nullable|string|max:255',
             'CNSS' => 'nullable|integer',
           
-            'career_id' => 'required|exists:careers,id',
+            'career_id' => 'required|exists:career,id',
             'formations' => 'nullable|array',
-            'formations.*' => 'exists:formations,id',
+            'formations.*' => 'exists:formation,id',
         ];
     }
 }

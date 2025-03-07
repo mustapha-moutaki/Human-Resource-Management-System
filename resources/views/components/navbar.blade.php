@@ -1,7 +1,10 @@
 <nav class="bg-primary text-white p-4 fixed w-full top-0 z-50 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
         <button class="text-3xl md:hidden" onclick="toggleSidebar()">☰</button>
-        <a href="#" class="text-xl font-bold">Dashboard</a>
+        <a href="#" class="text-xl font-bold">
+    <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+</a>
+
         <div class="hidden md:flex items-center space-x-4">
             @auth
             <div class="relative">

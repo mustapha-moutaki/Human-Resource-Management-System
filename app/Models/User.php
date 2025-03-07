@@ -70,10 +70,10 @@ class User extends Authenticatable{
         return $this->hasMany(Grad::class, 'user_id');
     }
 
-    public function formations()
-    {
-        return $this->belongsToMany(Formation::class);
+    public function formations(){
+        return $this->belongsToMany(Formation::class, 'user_formation');
     }
+
 // calcul holidays for employee
     public function leaves() {
         return $this->hasMany(Leave::class);
@@ -89,6 +89,10 @@ class User extends Authenticatable{
         //this function check how many years the user worked and then trnasofrm to total days can take as time off and return the number
     }
 
-
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
+    }
+    
 
 }

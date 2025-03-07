@@ -55,7 +55,7 @@ public function store(Request $request){
         'address' => $request->address,
         'phone' => $request->phone, 
         'status' => $request->status, 
-        'assurance' => $request->assurance, 
+        'assurance' => in_array($request->assurance, ['yes', 'no']) ? $request->assurance : 'no', 
         'CIN' => $request->CIN,
         'CNSS' => $request->CNSS,
         'departement_id' => $request->departement_id,
@@ -75,25 +75,58 @@ public function store(Request $request){
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
-        $data = $request->except('password');
-
-        // Hash the new password if provided
-        if ($request->password) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        $user = User::findOrFail($id);
+        // Validate the incoming request
+        $validatedData = $request->validate([
+            'career_id' => 'nullable|exists:career,id',
+            
+        ]);
     
-        // Update the user's career_id
-        $user->career_id = $request->career_id;
-        $user->save();
-        
-        $user->update($data);
-
+      
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+        }
+    
+       
+        if ($request->has('career_id')) {
+            $user->career_id = $request->career_id;
+        }
+    
+        if ($request->has('formations')) {
+            $user->formations()->sync($request->formations);
+        }
+    
+        $user->update($validatedData);
+    
         return redirect()->route('users.index')->with('success', 'User updated successfully!');
     }
+    
+
+    // public function update(UserRequest $request, User $user)
+    // {
+
+    //     $data = $request->except('password');
+
+    //     // Hash the new password if provided
+    //     if ($request->password) {
+    //         $data['password'] = Hash::make($request->password);
+    //     }
+
+    //     // $user = User::findOrFail($id);
+    //     if ($request->has('formations')) {
+    //         $user->formations()->sync($request->formations);
+    //     }
+    
+    
+    //     // // Update the user's career_id
+    //     // $user->career_id = $request->career_id;
+    //     // $user->save();
+        
+    //     $user->update($data);
+
+    //     return redirect()->route('users.index')->with('success', 'User updated successfully!');
+    // }
 
     /**
      * Display the specified resource.
@@ -110,10 +143,11 @@ public function store(Request $request){
      */
     public function edit(User $user)
     {
+        $contracts = Contract::all();
         $departments = Departement::all();
         $roles = Role::all();
         $grads = Grad::all();
-        return view('users.edit', compact('user', 'departments', 'roles', 'grads'));
+        return view('users.edit', compact('user', 'departments', 'roles', 'grads', 'contracts'));
         return redirect()->route('users.index')->with('success', 'User update successfully!');
     }
 
