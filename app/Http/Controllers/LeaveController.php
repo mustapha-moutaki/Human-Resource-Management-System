@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Leave;
 use Carbon\Carbon; 
+use App\Notifications\RequestStatusNotification;    
 class LeaveController extends Controller
 {
     /**
@@ -18,19 +19,64 @@ class LeaveController extends Controller
 
     }
 
+    // public function accept(Leave $leave)
+    // {
+    //     $leave->status = 'accepted';
+    //     $leave->save();
+    //     return back();
+    // }
+
+    // public function refuse(Leave $leave)
+    // {
+    //     $leave->status = 'refused';
+    //     $leave->save();
+    //     return back();
+    // }
     public function accept(Leave $leave)
     {
         $leave->status = 'accepted';
         $leave->save();
-        return back();
+    
+        // Notify the user
+        $leave->user->notify(new RequestStatusNotification('accepted'));
+    
+        // Return updated notification count
+        return response()->json([
+            'message' => 'Leave request accepted!',
+            'notificationCount' => auth()->user()->unreadNotifications->count()
+        ]);
     }
-
+    
     public function refuse(Leave $leave)
     {
         $leave->status = 'refused';
         $leave->save();
-        return back();
+    
+        // Notify the user
+        $leave->user->notify(new RequestStatusNotification('refused'));
+    
+        // Return updated notification count
+        return response()->json([
+            'message' => 'Leave request refused!',
+            'notificationCount' => auth()->user()->unreadNotifications->count()
+        ]);
     }
+    
+    public function updateRequestStatus(Request $request, $id)
+{
+    $employee = User::findOrFail($request->employee_id); // geting the user
+    $status = $request->status; 
+
+    // save data in the db
+    $requestModel = RequestModel::findOrFail($id);
+    $requestModel->status = $status;
+    $requestModel->save();
+
+    //send notificatiob
+    $employee->notify(new RequestStatusNotification($status));
+
+    return response()->json(['message' => 'your request update with success']);
+}
     /**
      * Show the form for creating a new resource.
      */

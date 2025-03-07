@@ -15,6 +15,13 @@ use App\Livewire\LogoutComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManageApps; 
+use App\Http\Controllers\NotificationController; 
+
+// use App\Http\Controllers\NotificationController;
+
+// Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+Route::get('/notifications', [NotificationController::class, 'showAllNotifications'])->name('notifications');
+
 Route::redirect('/', '/login');
 
 Route::post('/logout', function () {
@@ -48,7 +55,7 @@ Route::middleware('role:HR|Admin')->group(function(){
 });
 
 
-Route::middleware('role:HR|Manager')->group(function(){
+Route::middleware('role:HR|Manager|Admin')->group(function(){
     Route::resource('manageapps', ManageApps::class);
 });
 
