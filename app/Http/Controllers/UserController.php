@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 
+// for reset the password
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordMail;
 class UserController extends Controller
 {
     /**
@@ -62,16 +66,37 @@ public function store(Request $request){
         // 'role_id' => $request->role_id,
         'contract_id' => $request->contract_id,
         'salary' => $request->salary,
-       
+        'reset_token' => Str::random(60),
     ]);
-     
+    Mail::to($user->email)->send(new ResetPasswordMail($user));// send email for reset the password
     $user->assignRole($request->role_name);
     // dd($request->role_name);
 
     return redirect()->route('users.index')->with('success', 'User saved successfully!');
 }
 
-    
+    public function showResetForm($token){
+        return view('auth.reset_password', compact('token'));
+    }
+
+public function updatePassword(Request $request){
+    $request->validate([
+        'token' => 'required',
+        'password' => 'required|min:6|confirmed',
+    ]);
+
+    //search user using the reset tokern
+    $user = User::where('reset_token', $request->token)->firstOrFail();
+
+    // update the password and delete the token
+    $user->update([
+        'password' => bcrypt($request->password),
+        'reset_token' => null,
+    ]);
+
+    return redirect('/login')->with('success', 'the password updated successfully');
+}
+
 
     /**
      * Update the specified resource in storage.

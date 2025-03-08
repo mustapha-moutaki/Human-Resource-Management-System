@@ -40,6 +40,7 @@ class User extends Authenticatable{
         'grad_id',
         'contract_id',
         'salary',
+        'reset_token',
     ];
 
     protected $hidden = [

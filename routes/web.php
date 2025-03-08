@@ -68,6 +68,9 @@ Route::middleware('role:HR|Manager|Admin')->group(function(){
 Route::middleware('role:Manager|HR|Admin|Employee')->group(function(){
     
     Route::resource('organizational', OrganizationalChartController::class);
+    Route::get('/reset-password/{token}', [UserController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [UserController::class, 'updatePassword'])->name('password.update');
+
   
 });
 
